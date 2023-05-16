@@ -5,6 +5,11 @@ export interface User {
   github: string,
 }
 
+export interface StateEnableInput {
+  enableInput:boolean, 
+  userId:string
+}
+
 export type userDispatchTypes = {
   type: "init",
   payload: User

@@ -27,16 +27,29 @@ const users = [
   }
 ];
 
+const getUsersFromStorage = (): User[] => {
+  const usersStorage = localStorage.getItem('users-redux')
+  if(usersStorage){
+    return JSON.parse(usersStorage)
+  } else {
+    return []
+  }
+}
+
 const userSlice = createSlice({
   name: 'users',
-  initialState: users,
+  initialState: getUsersFromStorage(),
   reducers: {
     createUser(state: Array<User>, action) {
       return [...state, { ...action.payload, id: randomId() }]
     },
 
     updateUser(state: Array<User>, action) {
-      return [...state, action.payload]
+      console.log("action", action);
+      const userEdit = state.map((user) => {
+        return user.id === action.payload.id ? {...user, [action.payload.name]: action.payload.value  } : user
+      })
+      return userEdit
     },
 
     deleteUser(state: Array<User>, action) {

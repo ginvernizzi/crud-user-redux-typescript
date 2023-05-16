@@ -5,11 +5,14 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './usersStore'
 import { Provider } from 'react-redux'
+import { ErrorProvider } from './context/ErrorContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ErrorProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ErrorProvider>
   </React.StrictMode>,
 )

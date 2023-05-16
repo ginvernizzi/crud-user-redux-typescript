@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, {useContext, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { createUser } from '../useReducer'
+import ErrorContext from '../context/ErrorContext'
 
 const UserForm = () => {
-  const [inputFields, setInputFields] = useState({ name: "", email: "", git: "" })
+  const [inputFields, setInputFields] = useState({ name: "", email: "", github: "" })
   const dispatch = useDispatch()
+  const [error, setError] = useContext(ErrorContext)
 
   const onHandleChange = (e: React.ChangeEvent<FormControlElement>) => {
     setInputFields({ ...inputFields, [e.target.name]: e.target.value })
@@ -13,9 +15,21 @@ const UserForm = () => {
 
   const onCreateUser = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(createUser(inputFields))
-  }
+    const inputs = Object.values(inputFields).map(x => !x.trim() ? "v" : "o")
 
+    if(inputs.includes("v")){
+      setError("Hay campos vacios")
+      setInterval(() => {
+        setError(null)
+      }, 4000)
+      return
+    }
+
+    e.preventDefault()
+    dispatch(createUser(inputFields))
+    setInputFields({name: "", email: "", github: ""})
+  }
+  
   return (
     <div className='container'>
       <div className='form-container'>
@@ -28,7 +42,7 @@ const UserForm = () => {
             <Form.Control name='email' placeholder='email' value={inputFields.email} onChange={(e) => onHandleChange(e)} />
           </Form.Group>
           <Form.Group>
-            <Form.Control name='git' placeholder='usaurio de github' value={inputFields.git} onChange={(e) => onHandleChange(e)} />
+            <Form.Control name='github' placeholder='usaurio de github' value={inputFields.github} onChange={(e) => onHandleChange(e)} />
           </Form.Group>
           <Form.Group>
             <Button type='submit' className='form-button' >Crear usuario</Button>
