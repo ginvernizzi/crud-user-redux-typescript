@@ -1,9 +1,9 @@
 import { createContext, useState } from 'react'
 
-const ErrorContext = createContext()
+const ErrorContext = createContext({})
 
 interface Prop {
-  children: JSX.Element
+  children: any
 }
 
 export const ErrorProvider = ({children}:Prop) => {
