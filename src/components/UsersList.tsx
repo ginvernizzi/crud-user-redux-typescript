@@ -1,25 +1,23 @@
 import { Table } from 'react-bootstrap';
 import { Badge } from 'react-bootstrap';
-import { StateEnableInput, User } from '../type';
-import { useDispatch } from 'react-redux'
-import { deleteUser } from '../useReducer';
+import { StateEnableInput, UserId, UserWithId } from '../type';
 import Editable from './Editable';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../hoooks/useStoreAction';
+import { deleteUser } from '../useReducer';
+
 
 const URL_GIT = 'https://unavatar.io/github/'
 
-interface Props {
-  users: User[]
-}
-
-const UsersList = ({ users }: Props) => {
-  const dispatch = useDispatch()
+const UsersList = () => {
   const [enableEdit, setEnableEdit] = useState<StateEnableInput>({enableInput:false, userId:"9999999999"})
+  const users = useAppSelector(state => state.users)
+  const dispatch = useAppDispatch()
 
 
-  const onHandleDelete = (id: string) => {
-    // console.log(id);
-    dispatch(deleteUser({ id: id }))
+  const onHandleDelete = (id: UserId) => {
+    console.log(id)
+    dispatch(deleteUser(id))
   }
 
   const onHandleSetEditableInput = (id: string) => {

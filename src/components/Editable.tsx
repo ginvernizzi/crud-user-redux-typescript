@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StateEnableInput } from '../type'
-import { useDispatch } from 'react-redux'
 import { updateUser } from '../useReducer'
+import { useAppDispatch } from '../hoooks/useStoreAction'
 
 interface Props {
   name: string,
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Editable = ({ userid, name, value, enableEdit, setEnableEdit }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [inputField, setInputField] = useState('')
 
   const onHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,6 @@ const Editable = ({ userid, name, value, enableEdit, setEnableEdit }: Props) => 
 
   const onKeyInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      console.log("userId", userid)
       dispatch(updateUser({
         id: userid,
         name: e.target.name,

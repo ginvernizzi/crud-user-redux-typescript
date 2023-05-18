@@ -1,12 +1,12 @@
 import React, {useContext, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
 import { createUser } from '../useReducer'
 import ErrorContext from '../context/ErrorContext'
+import { useAppDispatch } from '../hoooks/useStoreAction'
 
 const UserForm = () => {
   const [inputFields, setInputFields] = useState({ name: "", email: "", github: "" })
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [error, setError] = useContext(ErrorContext)
 
   const onHandleChange = (e: React.ChangeEvent<FormControlElement>) => {
