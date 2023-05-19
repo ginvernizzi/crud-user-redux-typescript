@@ -16,7 +16,7 @@ const UsersList = () => {
 
 
   const onHandleDelete = (id: UserId) => {
-    console.log(id)
+    // console.log(id)
     dispatch(deleteUser(id))
   }
 

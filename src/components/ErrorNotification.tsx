@@ -6,7 +6,7 @@ interface Props {
 
 const ErrorNotification = ({error}:Props) => {
   if(error === null){
-    return
+    return <div> </div>
   }
 
   return (
